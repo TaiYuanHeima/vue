@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import home from '@/components/home'
 import index from '@/components/index'
-import Page2 from '@/components/page2'
+import starter from '@/components/starter'
 const loginpage = resolve => require(['@/components/Login'],resolve)
 Vue.use(Router)
 
@@ -11,9 +11,31 @@ let router =  new Router({
   routes: [
         {
             path:'/',
-            name :'home',
-            component:home
+            name :'index',
+            component:index,
+            children: [
+            {
+              path: '/home',
+              name: 'home',
+              component: home
+            },
+              {
+                path: '/',
+                name: 'HelloWorld',
+                component: HelloWorld
+              },
+              {
+                path: '/hello',
+                name: 'HelloWorld',
+                component: HelloWorld
+              }
+          ]
         },
+        {
+          path: '/hh',
+          name: 'HelloWorld',
+          component: HelloWorld,
+        }
     /*
         {
             path:'/login',
@@ -21,16 +43,17 @@ let router =  new Router({
             component:loginpage
         },*/
 
-        {
+        /*{
             path:'/home',
             name :'home',
             component:home
-        },
-        {
-          path:'/index',
+        },*/
+        /*{
+          path:'/',
           name :'index',
-          component:index
-        }
+          component:index,
+
+        }*/
   ]
 })
     //对每次访问之前都要先看是否已经登录

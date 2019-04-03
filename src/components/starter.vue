@@ -5,11 +5,11 @@
     <header class="main-header">
 
       <!-- Logo -->
-      <a href="#" class="logo">
+      <a href="index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>B</b></span>
+        <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Bettem</b></span>
+        <span class="logo-lg"><b>Admin</b>LTE</span>
       </a>
 
       <!-- Header Navbar -->
@@ -124,7 +124,7 @@
                 <!-- The user image in the navbar-->
                 <img src="../assets/logo.png" class="user-image" alt="User Image">
                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                <span class="hidden-xs">Admin</span>
+                <span class="hidden-xs">Alexander Pierce</span>
               </a>
               <ul class="dropdown-menu">
                 <!-- The user image in the menu -->
@@ -132,7 +132,7 @@
                   <img src="../assets/logo.png" class="img-circle" alt="User Image">
 
                   <p>
-                    Admin - Web Developer
+                    Alexander Pierce - Web Developer
                     <small>Member since Nov. 2012</small>
                   </p>
                 </li>
@@ -182,14 +182,14 @@
             <img src="../assets/logo.png" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>Admin</p>
+            <p>Alexander Pierce</p>
             <!-- Status -->
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
 
         <!-- search form (Optional) -->
-        <!--<form action="#" method="get" class="sidebar-form">
+        <form action="#" method="get" class="sidebar-form">
           <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="Search...">
             <span class="input-group-btn">
@@ -197,40 +197,24 @@
               </button>
             </span>
           </div>
-        </form>-->
+        </form>
         <!-- /.search form -->
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
-          <li class="active">
-            <router-link to="/hello"><i class="fa fa-link"></i> <span>&nbsp;&nbsp;&nbsp;首页</span></router-link>
-          </li>
+          <li class="header">HEADER</li>
           <!-- Optionally, you can add icons to the links -->
-          <li >
-            <router-link to="/home"><i class="fa fa-link"></i> <span>员工管理</span></router-link>
-          </li>
-          <li>
-            <router-link to="/home"><i class="fa fa-link"></i> <span>部门管理</span></router-link>
-          </li>
-          <li>
-            <router-link to="/home"><i class="fa fa-link"></i> <span>角色管理</span></router-link>
-          </li>
-          <li>
-            <router-link to="/home"><i class="fa fa-link"></i> <span>菜单管理</span></router-link>
-          </li>
+          <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+          <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
           <li class="treeview">
-            <a href="#"><i class="fa fa-link"></i> <span>权限管理</span>
+            <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
             <ul class="treeview-menu">
-              <li>
-                <router-link to="/home">一级权限</router-link>
-              </li>
-              <li>
-                <router-link to="/home">二级权限</router-link>
-              </li>
+              <li><a href="#">Link in level 2</a></li>
+              <li><a href="#">Link in level 2</a></li>
             </ul>
           </li>
         </ul>
@@ -240,8 +224,8 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <!--<div class="content-wrapper">
-      &lt;!&ndash; Content Header (Page header) &ndash;&gt;
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
           Page Header
@@ -253,23 +237,14 @@
         </ol>
       </section>
 
-      &lt;!&ndash; Main content &ndash;&gt;
+      <!-- Main content -->
       <section class="content container-fluid">
 
-        &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;
+        <!--------------------------
           | Your Page Content Here |
-          &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;
-        &lt;!&ndash; 路由导航 &ndash;&gt;
-
-        &lt;!&ndash; 路由出口 &ndash;&gt;
+          -------------------------->
 
       </section>
-
-      &lt;!&ndash; /.content &ndash;&gt;
-    </div>-->
-    <div class="content-wrapper" style="border-style:solid; border-color:transparent">
-      <!-- Main content -->
-      <router-view style="margin-top:20px; padding:0px"></router-view>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -364,14 +339,11 @@
 </template>
 <script>
   export default {
-    name: 'index',
-    data: function () {
-      return
-        role: 0
-    },
-    mounted: function () {
-      console.log(2);
-      $(window).resize()
+    name: 'HelloWorld',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
     }
   }
 </script>
