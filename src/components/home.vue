@@ -105,11 +105,12 @@
                 addFormReadOnly: true,
                 dialogVisible: false,
                 isView: true,
+              pidlist: [],
                 addFormData: {
                     id: '',
                     name: '',
                     note: '',
-                    pid: '',
+                   /* pid: '',*/
                     code: '',
                     updateBy: ''
                 },
@@ -152,7 +153,7 @@
         methods: {
             loadData() {
                 let param = {filter:this.filters.name};
-                axios.post('/dept/list',qs.stringify(param)).then((result) => {
+                axios.get('/dept/gepDetByPid/-1',qs.stringify(param)).then((result) => {
                     var _data = result.data;
                     this.deptList = _data
                 });

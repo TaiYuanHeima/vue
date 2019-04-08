@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import HelloWorld from '@/components/system/HelloWorld'
 import home from '@/components/home'
 import index from '@/components/index'
-import starter from '@/components/starter'
 const loginpage = resolve => require(['@/components/Login'],resolve)
 Vue.use(Router)
 
@@ -20,19 +19,15 @@ let router =  new Router({
               component: home
             },
               {
-                path: '/',
-                name: 'HelloWorld',
-                component: HelloWorld
-              },
-              {
                 path: '/hello',
                 name: 'HelloWorld',
                 component: HelloWorld
-              }
+              },
+
           ]
         },
         {
-          path: '/hh',
+          path: '/hello',
           name: 'HelloWorld',
           component: HelloWorld,
         }
