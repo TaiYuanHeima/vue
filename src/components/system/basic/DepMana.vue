@@ -76,7 +76,11 @@
       this.treeLoading = true;
       this.loadTreeData();
     },
-
+    watch: {
+      keywords(val) {
+        this.$refs.tree.filter(val);
+      }
+    },
     methods: {
       filterNode(value, data) {
         if (!value) return true;
@@ -88,7 +92,7 @@
         this.pDep = data.id;
         event.stopPropagation()
       },
-      loadAllDeps(){
+      /*loadAllDeps(){
         var _this = this;
         _this.allDeps =[{
           "id": "1",
@@ -126,6 +130,14 @@
           "children": [],
           "parent": true
         }];
+      },*/
+      loadAllDeps(){
+        var _this = this;
+        axios.get('/dept/deps',qs.stringify()).then((resp) => {
+          if (resp && resp.status == 200) {
+            _this.allDeps = resp.data;
+          }
+        });
       },
       loadTreeData(){
         var _this = this;
@@ -142,7 +154,7 @@
         this.treeLoading = true;
         var params = {
           name: this.depName,
-          parentId: this.pDep
+          pid: this.pDep
         };
         axios.post('/dept/dep',qs.stringify(params)).then((resp) => {
           _this.treeLoading = false;
@@ -152,6 +164,17 @@
             _this.setDataToTree(_this.treeData,_this.pDep,respData.msg)
           }
         })
+      },
+      setDataToTree(treeData,pId,respData){
+        for(var i=0;i<treeData.length;i++) {
+          var td = treeData[i];
+          if(td.id==pId) {
+            treeData[i].children=treeData[i].children.concat(respData);
+            return;
+          }else{
+            this.setDataToTree(td.children, pId, respData);
+          }
+        }
       },
       deleteDep(data, event){
         var _this = this;
@@ -167,7 +190,10 @@
             type: 'warning'
           }).then(() => {
             _this.treeLoading = true;
-            _this.deleteRequest("/system/basic/dep/" + data.id).then(resp=> {
+            var params = {
+              deptid: data.id
+            };
+            axios.post('/dept/delete',qs.stringify(params)).then((resp) => {
               _this.treeLoading = false;
               if (resp && resp.status == 200) {
                 var respData = resp.data;
@@ -183,6 +209,17 @@
           });
         }
         event.stopPropagation()
+      },
+      deleteLocalDep(treeData,data){
+        for(var i=0;i<treeData.length;i++) {
+          var td = treeData[i];
+          if(td.id==data.id) {
+            treeData.splice(i, 1);
+            return;
+          }else{
+            this.deleteLocalDep(td.children, data);
+          }
+        }
       },
       renderContent(h, {node, data, store}) {
         return (
