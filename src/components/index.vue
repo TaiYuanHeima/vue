@@ -203,14 +203,14 @@
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
           <li class="active">
-            <router-link to="/hello"><i class="fa fa-link"></i> <span>&nbsp;&nbsp;&nbsp;首页</span></router-link>
+            <router-link to="/begin"><i class="fa fa-link"></i> <span>&nbsp;&nbsp;&nbsp;首页</span></router-link>
           </li>
           <!-- Optionally, you can add icons to the links -->
           <li >
-            <router-link to="/home"><i class="fa fa-link"></i> <span>员工管理</span></router-link>
+            <router-link to="/emp"><i class="fa fa-link"></i> <span>员工管理</span></router-link>
           </li>
           <li>
-            <router-link to="/home"><i class="fa fa-link"></i> <span>部门管理</span></router-link>
+            <router-link to="/sys"><i class="fa fa-link"></i> <span>部门管理</span></router-link>
           </li>
           <li>
             <router-link to="/home"><i class="fa fa-link"></i> <span>角色管理</span></router-link>
@@ -365,10 +365,10 @@
 <script>
   export default {
     name: 'index',
-    data: function () {
+    /*data: function () {
       return
         role: 0
-    },
+    },*/
     mounted: function () {
       console.log(2);
       $(window).resize()

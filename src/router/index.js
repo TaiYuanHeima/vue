@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/system/HelloWorld'
+import SysBasic from '@/components/system/SysBasic'
 import home from '@/components/home'
 import index from '@/components/index'
+import emp from '@/components/emp/EmpBasic'
 const loginpage = resolve => require(['@/components/Login'],resolve)
 Vue.use(Router)
 
@@ -18,19 +19,21 @@ let router =  new Router({
               name: 'home',
               component: home
             },
-              {
-                path: '/hello',
-                name: 'HelloWorld',
-                component: HelloWorld
-              },
+            {
+                path: '/sys',
+                name: 'SysBasic',
+                component: SysBasic
+            },
+            {
+                path: '/emp',
+                name: 'emp',
+                component: emp
+             },
+
 
           ]
         },
-        {
-          path: '/hello',
-          name: 'HelloWorld',
-          component: HelloWorld,
-        }
+
     /*
         {
             path:'/login',
