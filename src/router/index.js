@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import SysBasic from '@/components/system/SysBasic'
-import home from '@/components/home'
+import menu from '@/components/system/menu/MenuMana'
 import index from '@/components/index'
 import emp from '@/components/emp/EmpBasic'
+import home from '@/components/home'
 const loginpage = resolve => require(['@/components/Login'],resolve)
 Vue.use(Router)
 
@@ -15,12 +16,7 @@ let router =  new Router({
             component:index,
             children: [
             {
-              path: '/home',
-              name: 'home',
-              component: home
-            },
-            {
-                path: '/sys',
+                path: '/dept',
                 name: 'SysBasic',
                 component: SysBasic
             },
@@ -29,6 +25,16 @@ let router =  new Router({
                 name: 'emp',
                 component: emp
              },
+            {
+              path: '/home',
+              name: 'home',
+              component: home
+            },
+              {
+                path: '/menu',
+                name: 'menu',
+                component: menu
+              },
 
 
           ]

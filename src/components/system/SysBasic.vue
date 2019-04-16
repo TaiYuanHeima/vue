@@ -1,10 +1,10 @@
 <template>
-  <div style="margin-top: 10px;margin-left:30px">
-    <el-tabs v-model="defaultTab" type="card">
+  <div style="margin-top: 10px;margin-left:30px;">
+    <el-tabs  v-model="defaultTab" type="card">
       <el-tab-pane label="部门管理" name="depMana">
         <dep-mana></dep-mana>
       </el-tab-pane>
-      <el-tab-pane label="职位管理" name="positionMana">
+      <!--<el-tab-pane label="职位管理" name="positionMana">
         <pos-mana state="position"></pos-mana>
       </el-tab-pane>
       <el-tab-pane label="职称管理" name="jobTitleMana">
@@ -15,7 +15,7 @@
       </el-tab-pane>
       <el-tab-pane label="权限组" name="menuRole">
         <menu-role></menu-role>
-      </el-tab-pane>
+      </el-tab-pane>-->
     </el-tabs>
   </div>
 </template>

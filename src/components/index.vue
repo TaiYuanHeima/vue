@@ -188,8 +188,8 @@
           </div>
         </div>
 
-        <!-- search form (Optional) -->
-        <!--<form action="#" method="get" class="sidebar-form">
+        <!--search form (Optional)-->
+        <form action="#" method="get" class="sidebar-form">
           <div class="input-group">
             <input type="text" name="q" class="form-control" placeholder="Search...">
             <span class="input-group-btn">
@@ -197,15 +197,13 @@
               </button>
             </span>
           </div>
-        </form>-->
-        <!-- /.search form -->
+        </form>
 
-        <!-- Sidebar Menu -->
-        <ul class="sidebar-menu" data-widget="tree">
+        <!--<ul class="sidebar-menu" data-widget="tree">
           <li class="active">
             <router-link to="/begin"><i class="fa fa-link"></i> <span>&nbsp;&nbsp;&nbsp;首页</span></router-link>
           </li>
-          <!-- Optionally, you can add icons to the links -->
+          &lt;!&ndash; Optionally, you can add icons to the links &ndash;&gt;
           <li >
             <router-link to="/emp"><i class="fa fa-link"></i> <span>员工管理</span></router-link>
           </li>
@@ -213,10 +211,10 @@
             <router-link to="/sys"><i class="fa fa-link"></i> <span>部门管理</span></router-link>
           </li>
           <li>
-            <router-link to="/home"><i class="fa fa-link"></i> <span>角色管理</span></router-link>
+            <router-link to="/sys"><i class="fa fa-link"></i> <span>角色管理</span></router-link>
           </li>
           <li>
-            <router-link to="/home"><i class="fa fa-link"></i> <span>菜单管理</span></router-link>
+            <router-link to="/sys"><i class="fa fa-link"></i> <span>菜单管理</span></router-link>
           </li>
           <li class="treeview">
             <a href="#"><i class="fa fa-link"></i> <span>权限管理</span>
@@ -226,10 +224,27 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                <router-link to="/home">一级权限</router-link>
+                <router-link to="/sys">一级权限</router-link>
               </li>
               <li>
-                <router-link to="/home">二级权限</router-link>
+                <router-link to="/sys">二级权限</router-link>
+              </li>
+            </ul>
+          </li>
+        </ul>-->
+        <ul class="sidebar-menu" data-widget="tree" v-for="(todo, index) in lilist">
+          <li v-if="!todo.type" v-on:click="addClass(index,$event)" v-bind:class="{ active:index==current}">
+            <router-link :to="todo.url"><i class="fa fa-link"></i> <span>&nbsp;<span>{{ todo.name }}</span></span></router-link>
+          </li>
+          <li v-if="todo.type" class="treeview" v-on:click="addClass(name,$event)" v-bind:class="{ active:index==current}">
+            <a href="#"><i class="fa fa-link"></i> <span>{{todo.name}}</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu" >
+              <li v-for="(tod,index) in todo.children" v-bind:class="{ active:index==current}">
+                <router-link :to="tod.url">{{tod.name}}</router-link>
               </li>
             </ul>
           </li>
@@ -267,7 +282,7 @@
 
       &lt;!&ndash; /.content &ndash;&gt;
     </div>-->
-    <div class="content-wrapper" style="border-style:solid; border-color:transparent">
+    <div class="content-wrapper" style="border-style:solid; border-color:transparent;background-color: white">
       <!-- Main content -->
       <router-view style="margin-top:20px; padding:0px"></router-view>
       <!-- /.content -->
@@ -281,7 +296,7 @@
         Anything you want
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; 2019 <a href="#">Company</a>.</strong> All rights reserved.
     </footer>
 
     <!-- Control Sidebar -->
@@ -363,15 +378,79 @@
   </div>
 </template>
 <script>
+  import {
+    userList
+  } from '../api/api';
+  import axios from 'axios';
+  import qs from 'qs';
   export default {
     name: 'index',
     /*data: function () {
       return
         role: 0
     },*/
+    data() {
+      return {
+        current: 0,
+        todos: [
+          {text: '首页', path: '/home', isParent: 0, children: []},
+          {text: '员工管理', path: '/emp', isParent: 0, children: []},
+          {text: '部门管理', path: '/sys', isParent: 0, children: []},
+          {text: '权限管理', path: '/sys', isParent: 1, children: [
+              { isParent: 0, path:'/sys', text: "父节点11" }, { isParent: 0, path:'/sys', text: "父节点12" }
+            ]}
+        ],
+        lilist:[],
+        da: []
+      }
+
+    },
     mounted: function () {
       console.log(2);
-      $(window).resize()
+      $(window).resize();
+      this.da= this.FlatToNested(this.lilist);
+      this.loadmenu();
+    },
+    methods: {
+      addClass: function (index, event) {
+        this.current = index;
+        //获取点击对象
+        var el = event.currentTarget;
+      },
+      loadmenu(){
+        var _this = this;
+        axios.get('/menu/getMenuByParentId/0',qs.stringify()).then(function (resp) {
+          if (resp && resp.status == 200) {
+            var data = resp.data;
+            _this.lilist = data;
+          }
+        })
+      },
+      FlatToNested: function (data, option) {
+        option = option || {};
+        var idProperty = option.idProperty || 'id';
+        var nameProperty = option.nameProperty || 'name';
+        var urlProperty = option.nameProperty || 'url';
+        var parentProperty = option.parentProperty || 'pid';
+        var childrenProperty = option.childrenProperty || 'children';
+        let res = [],
+          tmpMap = [];
+        for (let i = 0; i < data.length; i++) {
+          tmpMap[data[i][idProperty]] = data[i];
+          if (tmpMap[data[i][parentProperty]] && data[i][idProperty] != data[i][parentProperty]) {
+            if (!tmpMap[data[i][parentProperty]][childrenProperty])
+              tmpMap[data[i][parentProperty]][childrenProperty] = [];
+            data[i][nameProperty] = data[i][nameProperty];
+            data[i][urlProperty] = data[i][urlProperty];
+            tmpMap[data[i][parentProperty]][childrenProperty].push(data[i]);
+          } else {
+            data[i][nameProperty] = data[i][nameProperty];
+            data[i][urlProperty] = data[i][urlProperty];
+            res.push(data[i]);
+          }
+        }
+        return res;
+      }
     }
   }
 </script>
